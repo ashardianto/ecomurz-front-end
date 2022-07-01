@@ -1,10 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit'
-import searchInput from './search/action'
-import cartInput from './search/action'
+import cartReducer from './cart/cartSlice'
 
-export const store = configureStore({
+export default configureStore({
   reducer: {
-    // search: searchInput,
-    addToCart: cartInput
+    cart: cartReducer
   }
 })

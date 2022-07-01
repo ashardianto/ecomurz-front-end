@@ -4,10 +4,13 @@ import SearchIcon from "@mui/icons-material/Search";
 import Badge from "@mui/material/Badge";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { useDispatch, useSelector } from "react-redux";
+import { mobile } from "../responsive";
+import { Link } from "react-router-dom";
 // import { watchSearchInput } from "../states/search/action";
 
 const Container = styled.div`
   height: 60px;
+  ${mobile({ height: "50px" })}
 `;
 
 const Wrapper = styled.div`
@@ -15,6 +18,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  ${mobile({ padding: "10px 0px" })}
 `;
 
 const Left = styled.div`
@@ -26,6 +30,7 @@ const Left = styled.div`
 const Language = styled.span`
   font-size: 14px;
   cursor: pointer;
+  ${mobile({ display: "none" })}
 `;
 
 const SearchContainer = styled.div`
@@ -38,6 +43,7 @@ const SearchContainer = styled.div`
 
 const Input = styled.input`
   border: none;
+  ${mobile({ width: "50px" })}
 `;
 
 const Center = styled.div`
@@ -47,6 +53,7 @@ const Center = styled.div`
 
 const Logo = styled.h1`
   font-weight: bold;
+  ${mobile({ fontSize: "24px" })}
 `;
 
 const Right = styled.div`
@@ -54,12 +61,14 @@ const Right = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  ${mobile({ justifyContent: "center", flex: 2 })}
 `;
 
 const MenuItem = styled.div`
   font-style: 14px;
   cursor: pointer;
   margin-left: 20px;
+  ${mobile({ fontSize: "12px", marginLeft: "10px" })}
 `;
 
 const Navbar = () => {
@@ -67,9 +76,8 @@ const Navbar = () => {
   // console.log(searchInputValue);
   // const dispatch = useDispatch();
 
-  const cartQuantity = useSelector((state) => state.addToCart.value);
+  const cartQuantity = useSelector((state) => state.cart.quantity);
   console.log(cartQuantity);
-  const dispatch = useDispatch();
 
   return (
     <Container>
@@ -78,8 +86,9 @@ const Navbar = () => {
           <Language>EN</Language>
           <SearchContainer>
             <Input
-            // onChange={(e) => dispatch(watchSearchInput(e.target.value))}
-            // value={searchInputValue}
+              placeholder="search"
+              // onChange={(e) => dispatch(watchSearchInput(e.target.value))}
+              // value={searchInputValue}
             />
             <SearchIcon style={{ color: "gray", fontSize: 16 }} />
           </SearchContainer>
@@ -90,14 +99,16 @@ const Navbar = () => {
         <Right>
           <MenuItem>Register</MenuItem>
           <MenuItem>Sign In</MenuItem>
-          <MenuItem>
-            <Badge badgeContent={cartQuantity} color="primary">
-              <ShoppingCartOutlinedIcon
-                // onClick={() => dispatch(watchSearchInput("sulay ganteng"))}
-                color="action"
-              />
-            </Badge>
-          </MenuItem>
+          <Link to="/cart">
+            <MenuItem>
+              <Badge badgeContent={cartQuantity} color="primary">
+                <ShoppingCartOutlinedIcon
+                  // onClick={() => dispatch(watchSearchInput("sulay ganteng"))}
+                  color="action"
+                />
+              </Badge>
+            </MenuItem>
+          </Link>
         </Right>
       </Wrapper>
     </Container>
